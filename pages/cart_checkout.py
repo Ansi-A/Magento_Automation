@@ -11,31 +11,13 @@ from utils.locators import CheckoutPage, SelectItem
 
 
 class CartCheckout(BasePage):
-    """Handles all cart and checkout operations on Magento website."""
+    """This classhandles all cart and checkout operations on Magento website."""
 
     def __init__(self, driver):
         super().__init__(driver)
 
 
-    # ----------------- CART COUNTER -----------------
-    '''    def wait_for_counter_update(self, timeout=10):
-        """Wait for cart counter to update after adding item."""
-        try:
-            # Wait for spinner to disappear (if any)
-            self.invisibilityofelement((By.CSS_SELECTOR, "img[alt='Loading...']"), timeout=timeout)
-        except:
-            pass
 
-        def counter_updated(driver):
-            element = driver.find_element(*CheckoutPage.nocounter)
-            return element.text.isdigit() and int(element.text) > 0
-
-        try:
-            WebDriverWait(self.driver, timeout).until(counter_updated)
-            return True
-        except:
-            return False
-'''
     # ----------------- CHECKOUT FORM -----------------
     def shopping_cart(self):
         self.elementtobeclickable(CheckoutPage.shoppingcart).click()
@@ -48,21 +30,12 @@ class CartCheckout(BasePage):
     def email_id(self, email_id):
         email_locator = (By.ID, "customer-email")
         wait = WebDriverWait(self.driver, 20)
-
-        try:
-            email_field = wait.until(
+        
+        email_field = wait.until(
                 EC.visibility_of_element_located(email_locator)
             )
-            email_field.clear()
-            email_field.send_keys(email_id)
-            print("✅ Email filled:", email_id)
-        except TimeoutException:
-            # Debug info
-            print("⚠️ Email field not found on checkout page")
-            print("Current URL:", self.driver.current_url)
-            self.driver.save_screenshot("email_debug.png")
-            print(self.driver.page_source[:1000])
-            raise  # stop test here so you know email wasn’t filled
+        email_field.clear()
+        email_field.send_keys(email_id) 
 
     def shipping_method(self, shipping_method_value):
         try:
