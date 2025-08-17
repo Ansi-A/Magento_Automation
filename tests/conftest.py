@@ -16,6 +16,7 @@ def start(max_retries=3, retry_delay=2):
             driver.get(target_info.URL)
             driver.maximize_window()
 
+
             if (driver.current_url == target_info.URL and
                     "cloudflare" not in driver.page_source.lower()):
                 return driver

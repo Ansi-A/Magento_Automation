@@ -3,3 +3,6 @@ pytest==8.2.1
 pytest-html==4.1.1
 webdriver-manager==4.0.1
 selenium-wire
+numpy
+pyautogui
+opencv-python
