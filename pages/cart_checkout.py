@@ -1,4 +1,8 @@
 # checkout.py
+import time
+
+from selenium.common import TimeoutException
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -19,22 +23,31 @@ class CartCheckout(BasePage):
     def proceed_to_checkout(self):
         self.click_if_exists(CheckoutLocators.PROCEEDTOCHECKOUT)
 
+    def is_guest_checkout_flow(self, timeout=3):
+        """
+        Detects if the current checkout flow is for a guest (requires email)
+        or a logged-in user (uses saved address).
+        Returns True if guest flow (email field visible), False if user flow.
+        """
+        try:
+            # Quick check if email field is present
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(CheckoutLocators.EMAILID)
+            )
+            print("🔍 Detected: Guest Checkout Flow (email field present)")
+            return True
+        except TimeoutException:
+            print("🔍 Detected: Logged-in User Checkout Flow (no email field)")
+            return False
     # ----------------- EMAIL (now also skip if missing) -----------------
     def email_id(self, email_id):
-        email_locator = (By.ID, "customer-email")
+        """Use the robust send_keys method from base.py"""
         try:
-            field = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located(email_locator)
-            )
-            try:
-                field.clear()
-            except Exception:
-                pass
-            field.send_keys(email_id)
+            self.send_keys(CheckoutLocators.EMAILID, email_id)
             print(f"✅ Email filled: {email_id}")
             return True
-        except Exception:
-            print("⚠️ Email field not found/visible. Skipping.")
+        except Exception as e:
+            print(f"❌ Failed to fill email: {e}")
             return False
 
     # ----------------- CHECKOUT FIELDS (all safe: exist => fill, else skip) -----------------
@@ -46,9 +59,34 @@ class CartCheckout(BasePage):
     def streetadd2(self, value): self.fill_if_exists(CheckoutLocators.STREETADD2, value)
     def streetadd3(self, value): self.fill_if_exists(CheckoutLocators.STREETADD3, value)
     def city(self, value): self.fill_if_exists(CheckoutLocators.CITY, value)
-    def state(self, value): self.select_if_exists(CheckoutLocators.STATE, value)
+    def state(self, value): self.fill_if_exists(CheckoutLocators.STATE, value)
     def zip(self, value): self.fill_if_exists(CheckoutLocators.ZIP, value)
-    def country(self, value): self.select_if_exists(CheckoutLocators.COUNTRY, value)
+
+    def country(self, country_name, timeout=10):
+        """
+        Robust country selection that waits for options to load via AJAX.
+        """
+        try:
+            # 1. Wait for country dropdown to be clickable
+            country_dropdown = WebDriverWait(self.driver, timeout).until(
+                EC.element_to_be_clickable(CheckoutLocators.COUNTRY)
+            )
+
+            # 2. Click to open dropdown (triggers AJAX loading if needed)
+            country_dropdown.click()
+            time.sleep(1)  # Brief pause for options to load
+
+            # 3. Select using the robust base method
+            self.select_by_visible_text(CheckoutLocators.COUNTRY, country_name)
+            print(f"✅ Country selected: {country_name}")
+            return True
+
+        except TimeoutException:
+            print(f"[INFO] Country dropdown not ready within {timeout}s. Skipping.")
+            return False
+        except Exception as e:
+            print(f"[INFO] Country selection failed: {e}")
+            return False
     def phone(self, value): self.fill_if_exists(CheckoutLocators.PHONE, value)
     # ----------------- SHIPPING & PAYMENT (all safe clicks) -----------------
     def shipping_method0(self):
@@ -65,7 +103,8 @@ class CartCheckout(BasePage):
         return clicked
 
     def nextbtn(self):
-        return self.click_if_exists(CheckoutLocators.NEXTBTN)
+        # REPLACED click_if_exists with click_with_loader_wait for this critical action
+        return self.click_with_loader_wait(CheckoutLocators.NEXTBTN)
 
     def acknowledge(self):
         return self.click_if_exists(CheckoutLocators.ACKNOWLEDGE)
@@ -74,4 +113,5 @@ class CartCheckout(BasePage):
         return self.click_if_exists(CheckoutLocators.PLACEORDER0)
 
     def placeorder(self):
-        return self.click_if_exists(CheckoutLocators.PLACEORDER)
+        # REPLACED click_if_exists with click_with_loader_wait for this critical action
+        return self.click_with_loader_wait(CheckoutLocators.PLACEORDER)

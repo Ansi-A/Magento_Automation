@@ -21,48 +21,47 @@ def test_checkout():
     scroller = PageScroller(driver)
     checkout = CartCheckout(driver)
 
-    # --- Login ---
-    login.open_login()
-    login.login_email(test_data.UserData.email)
-    login.login_password(test_data.UserData.password)
-    login.login()
-
     # --- Search & Select Item ---
-    searcher.search(test_data.ItemData.search_term)
+    searcher.search(test_data.search_data.item)
     scroller.scroll_to_bottom(1, 0.5)
     selector.select_item()
-
     selector.select_size()
     selector.select_color()
     selector.set_quantity(test_data.ItemData.quantity)
     selector.checkout()
-
 
     # --- Cart & Checkout ---
     checkout.shopping_cart()
     checkout.proceed_to_checkout()
     driver.save_screenshot("screenshot_checkout.png")
 
-    # --- Fill Checkout Form ---
-    checkout.shipping_method0()
-    checkout.click_next()
-    checkout.placeOrder0()
-    time.sleep(2)
+    # --- DETECT CHECKOUT FLOW TYPE ---
+    is_guest_flow = checkout.is_guest_checkout_flow()
 
-    checkout.email = test_data.CheckoutData.email
-    checkout.fname(test_data.CheckoutData.first_name)
-    checkout.lname(test_data.CheckoutData.last_name)
-    checkout.company(test_data.CheckoutData.company)
-    checkout.streetadd1(test_data.CheckoutData.street1)
-    checkout.streetadd2(test_data.CheckoutData.street2)
-    checkout.streetadd3(test_data.CheckoutData.street3)
-    checkout.city(test_data.CheckoutData.city)
-    checkout.state(test_data.CheckoutData.state)
-    checkout.zip(test_data.CheckoutData.zip_code)
-    checkout.country(test_data.CheckoutData.country)
-    checkout.phone(test_data.CheckoutData.phone)
+    if is_guest_flow:
+        # --- GUEST CHECKOUT FLOW ---
+        print("🏃‍♂️ Executing Guest Checkout Flow")
+        checkout.email_id(test_data.CheckoutData.email)
+        checkout.fname(test_data.CheckoutData.first_name)
+        checkout.lname(test_data.CheckoutData.last_name)
+        checkout.company(test_data.CheckoutData.company)
+        checkout.streetadd1(test_data.CheckoutData.street1)
+        checkout.streetadd2(test_data.CheckoutData.street2)
+        #checkout.streetadd3(test_data.CheckoutData.street3)
+        checkout.country(test_data.CheckoutData.country)
+        checkout.city(test_data.CheckoutData.city)
+        checkout.state(test_data.CheckoutData.state)
+        checkout.zip(test_data.CheckoutData.zip_code)
+        checkout.phone(test_data.CheckoutData.phone)
+        checkout.shipping_method()
+        checkout.nextbtn()
+        checkout.placeorder()
 
-    checkout.shipping_method()
-    checkout.nextbtn()
-    checkout.acknowledge()
-    checkout.placeorder()
+    else:
+        # --- LOGGED-IN USER CHECKOUT FLOW ---
+        print("🏃‍♂️ Executing Logged-in User Checkout Flow")
+        checkout.shipping_method0()
+        checkout.click_next()
+        checkout.placeOrder0()
+
+    time.sleep(5)
