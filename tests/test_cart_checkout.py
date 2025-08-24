@@ -40,7 +40,7 @@ def test_checkout():
 
     if is_guest_flow:
         # --- GUEST CHECKOUT FLOW ---
-        print("🏃‍♂️ Executing Guest Checkout Flow")
+        print(" Executing Guest Checkout Flow")
         checkout.email_id(test_data.CheckoutData.email)
         checkout.fname(test_data.CheckoutData.first_name)
         checkout.lname(test_data.CheckoutData.last_name)
@@ -59,7 +59,7 @@ def test_checkout():
 
     else:
         # --- LOGGED-IN USER CHECKOUT FLOW ---
-        print("🏃‍♂️ Executing Logged-in User Checkout Flow")
+        print("🏃‍♂️Executing Logged-in User Checkout Flow")
         checkout.shipping_method0()
         checkout.click_next()
         checkout.placeOrder0()
