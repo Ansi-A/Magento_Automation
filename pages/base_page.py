@@ -88,12 +88,3 @@ class BasePage:
         except TimeoutException:
             return False
 
-    def select_if_exists(self, selector, visible_text, timeout=5):
-        try:
-            el = self.visibilityofelement(selector, timeout)
-            Select(el).select_by_visible_text(visible_text)
-            return True
-        except TimeoutException:
-            return False
-        except Exception:
-            return False

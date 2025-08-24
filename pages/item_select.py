@@ -56,7 +56,7 @@ class Item_Selection(BasePage):
             self.driver.save_screenshot("color_selection_failed.png")
             return False
 
-    def set_quantity(self, quantity, max_retries=3):
+    def set_quantity(self, quantity, max_retries=2):
         for attempt in range(max_retries):
             try:
                 self.wait_for_loader_to_disappear()
