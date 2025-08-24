@@ -19,7 +19,7 @@ class Item_Selection(BasePage):
             return True
         except Exception:
             print("[ERROR] Search failed")
-            self.driver.save_screenshot("search_failed.png")
+            self.driver.save_screenshot("reports/screenshots/search_failed.png")
             return False
 
     def select_item(self):
@@ -31,7 +31,7 @@ class Item_Selection(BasePage):
             return True
         except Exception:
             print("[ERROR] Item selection failed")
-            self.driver.save_screenshot("item_selection_failed.png")
+            self.driver.save_screenshot("reports/screenshots/item_selection_failed.png")
             return False
 
     def select_size(self):
@@ -42,7 +42,7 @@ class Item_Selection(BasePage):
             return True
         except Exception:
             print("[ERROR] Size selection failed")
-            self.driver.save_screenshot("size_selection_failed.png")
+            self.driver.save_screenshot("reports/screenshots/size_selection_failed.png")
             return False
 
     def select_color(self):
@@ -53,7 +53,7 @@ class Item_Selection(BasePage):
             return True
         except Exception:
             print("[ERROR] Color selection failed")
-            self.driver.save_screenshot("color_selection_failed.png")
+            self.driver.save_screenshot("reports/screenshots/color_selection_failed.png")
             return False
 
     def set_quantity(self, quantity, max_retries=2):
@@ -69,7 +69,7 @@ class Item_Selection(BasePage):
                 print(f"[WARNING] Quantity attempt {attempt + 1} failed")
                 self.driver.refresh()
                 time.sleep(1)
-        self.driver.save_screenshot("qty_failed.png")
+        self.driver.save_screenshot("reports/screenshots/qty_failed.png")
         return False
 
     def checkout(self):

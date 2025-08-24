@@ -59,7 +59,7 @@ def test_checkout():
 
     else:
         # --- LOGGED-IN USER CHECKOUT FLOW ---
-        print("🏃‍♂️Executing Logged-in User Checkout Flow")
+        print("🏃‍♂️ Executing Logged-in User Checkout Flow")
         checkout.shipping_method0()
         checkout.click_next()
         checkout.placeOrder0()
