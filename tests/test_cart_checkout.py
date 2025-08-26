@@ -21,6 +21,12 @@ def test_checkout():
     scroller = PageScroller(driver)
     checkout = CartCheckout(driver)
 
+    # --- Login
+    login.open_login()
+    login.login_email(test_data.UserData.email)
+    login.login_password(test_data.UserData.password)
+    login.login()
+    
     # --- Search & Select Item ---
     searcher.search(test_data.search_data.item)
     scroller.scroll_to_bottom(1, 0.5)
@@ -33,7 +39,7 @@ def test_checkout():
     # --- Cart & Checkout ---
     checkout.shopping_cart()
     checkout.proceed_to_checkout()
-    driver.save_screenshot("screenshot_checkout.png")
+   
 
     # --- DETECT CHECKOUT FLOW TYPE ---
     is_guest_flow = checkout.is_guest_checkout_flow()

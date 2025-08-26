@@ -2,12 +2,8 @@
 from tests import conftest
 import time
 from pages.registration_page import RegistrationPage
+from utils import test_data
 
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.webdriver.common.by import By
-from utils import *
-import pytest
 
 def test_registration_page():
 
@@ -15,12 +11,12 @@ def test_registration_page():
     time.sleep(1)
     reg_page = RegistrationPage(driver)
     reg_page.open_registration_page()
-    reg_page.fname("Muhammad")
-    reg_page.lname("Salmann")
-    reg_page.email("salmmmman@gmail.com")
-    reg_page.password("kaisaB12")
-    reg_page.confirmPassword("kaisaB12")
-    reg_page.Submit_createAccount()
+    reg_page.fname(test_data.UserData.fname)
+    reg_page.lname(test_data.UserData.lname)
+    reg_page.email(test_data.UserData.email)
+    reg_page.password(test_data)
+    reg_page.confirm_password(test_data.UserData.password)
+    reg_page.submit_create_account()
     time.sleep(6)
 
 
