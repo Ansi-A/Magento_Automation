@@ -14,7 +14,7 @@ def test_registration_page():
     reg_page.fname(test_data.UserData.fname)
     reg_page.lname(test_data.UserData.lname)
     reg_page.email(test_data.UserData.email)
-    reg_page.password(test_data)
+    reg_page.password(test_data.UserData.password)
     reg_page.confirm_password(test_data.UserData.password)
     reg_page.submit_create_account()
     time.sleep(6)
