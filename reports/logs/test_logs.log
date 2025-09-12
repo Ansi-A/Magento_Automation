@@ -1,0 +1,82 @@
+2025-09-12 11:01:47,836 - BasePage - INFO - Starting test
+2025-09-12 11:02:12,686 - BasePage - INFO - Test failed at attempt {attempt}/{max_retries}...
+2025-09-12 11:02:15,855 - BasePage - INFO - Test failed at attempt {attempt}/{max_retries}...
+2025-09-12 11:02:18,277 - BasePage - INFO - Test failed at attempt {attempt}/{max_retries}...
+2025-09-12 11:02:18,339 - BasePage - INFO - Browser opened
+2025-09-12 11:02:18,340 - BasePage - INFO - Login Page opened
+2025-09-12 11:02:18,340 - BasePage - ERROR - Error occurred during login 'NoneType' object has no attribute 'find_element'
+Traceback (most recent call last):
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/tests/test_cart_checkout.py", line 29, in test_checkout
+    login.open_login()
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/login_page.py", line 18, in open_login
+    self.visibilityofelement(CheckoutLocators.OPENLOGIN).click()
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 29, in visibilityofelement
+    return WebDriverWait(self.driver, timeout).until(
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/wait.py", line 96, in until
+    value = method(self._driver)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/expected_conditions.py", line 156, in _predicate
+    return _element_if_visible(driver.find_element(*locator))
+AttributeError: 'NoneType' object has no attribute 'find_element'
+2025-09-12 11:02:18,344 - BasePage - INFO - Search Item Page opened
+2025-09-12 11:02:18,344 - BasePage - ERROR - Error occurred during item search/selection:'NoneType' object has no attribute 'find_element'
+Traceback (most recent call last):
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/tests/test_cart_checkout.py", line 40, in test_checkout
+    searcher.search(test_data.search_data.item)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/search_item.py", line 14, in search
+    srh = self.elementtobeclickable(CheckoutLocators.SEARCH)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 34, in elementtobeclickable
+    return WebDriverWait(self.driver, timeout).until(
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/wait.py", line 96, in until
+    value = method(self._driver)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/expected_conditions.py", line 363, in _predicate
+    target = driver.find_element(*target)  # grab element at locator
+AttributeError: 'NoneType' object has no attribute 'find_element'
+2025-09-12 11:02:18,345 - BasePage - INFO - Cart Checkout Page opened
+2025-09-12 11:02:18,345 - CartCheckout - INFO - Opening shopping cart
+2025-09-12 11:02:18,345 - BasePage - ERROR - Error occurred while opening cart/checkout: 'NoneType' object has no attribute 'find_element'
+Traceback (most recent call last):
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/tests/test_cart_checkout.py", line 54, in test_checkout
+    checkout.shopping_cart()
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/cart_checkout.py", line 19, in shopping_cart
+    self.click_if_exists(CheckoutLocators.SHOPPINGCART)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 78, in click_if_exists
+    el = self.elementtobeclickable(selector, timeout)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 34, in elementtobeclickable
+    return WebDriverWait(self.driver, timeout).until(
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/wait.py", line 96, in until
+    value = method(self._driver)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/expected_conditions.py", line 363, in _predicate
+    target = driver.find_element(*target)  # grab element at locator
+AttributeError: 'NoneType' object has no attribute 'find_element'
+2025-09-12 11:02:18,347 - CartCheckout - INFO - Checking out guest checkout flow
+2025-09-12 11:02:18,347 - BasePage - INFO - Writing Shipping details....
+2025-09-12 11:02:18,347 - CartCheckout - INFO - Checking out email id
+2025-09-12 11:02:18,347 - CartCheckout - ERROR - Error occurred during email id salmmman@gmail.com: 'NoneType' object has no attribute 'find_element'
+Traceback (most recent call last):
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/cart_checkout.py", line 41, in email_id
+    self.send_keys(CheckoutLocators.EMAILID, email_id)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 43, in send_keys
+    el = self.visibilityofelement(selector, timeout)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 29, in visibilityofelement
+    return WebDriverWait(self.driver, timeout).until(
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/wait.py", line 96, in until
+    value = method(self._driver)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/expected_conditions.py", line 156, in _predicate
+    return _element_if_visible(driver.find_element(*locator))
+AttributeError: 'NoneType' object has no attribute 'find_element'
+2025-09-12 11:02:18,348 - CartCheckout - INFO - Writing fname
+2025-09-12 11:02:18,348 - BasePage - ERROR - Error occurred during guest checkout flow:'NoneType' object has no attribute 'find_element'
+Traceback (most recent call last):
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/tests/test_cart_checkout.py", line 69, in test_checkout
+    checkout.fname(test_data.CheckoutData.first_name)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/cart_checkout.py", line 52, in fname
+    self.fill_if_exists(CheckoutLocators.FNAME, value)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 86, in fill_if_exists
+    el = self.visibilityofelement(selector, timeout)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/pages/base_page.py", line 29, in visibilityofelement
+    return WebDriverWait(self.driver, timeout).until(
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/wait.py", line 96, in until
+    value = method(self._driver)
+  File "/home/muhammadsalman/PycharmProjects/Magneto_Ecommerce_Automation/.venv/lib/python3.10/site-packages/selenium/webdriver/support/expected_conditions.py", line 156, in _predicate
+    return _element_if_visible(driver.find_element(*locator))
+AttributeError: 'NoneType' object has no attribute 'find_element'
